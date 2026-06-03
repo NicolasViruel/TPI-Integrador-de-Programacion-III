@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del producto | Food Store</title>
+</head>
+<body class="layout-simple">
+  <header>
+    <h1>Food Store</h1>
+    <nav>
+      <ul>
+        <li><a href="../home/index.html">Inicio</a></li>
+        <li><a href="../cart/index.html">Carrito (<span id="badge-carrito">0</span>)</a></li>
+        <li><a href="../../client/orders/index.html">Mis Pedidos</a></li>
+        <li id="nav-admin" hidden><a href="../../admin/index.html">Panel Admin</a></li>
+        <li><button type="button" id="btn-cerrar-sesion" class="link-button">Salir</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="detalle-main">
+    <p id="saludo-usuario" class="saludo"></p>
+    <p><a href="../home/index.html">&larr; Volver al catálogo</a></p>
+    <article id="detalle-producto" class="detalle-producto-pagina"></article>
+  </main>
+
+  <footer>
+    <p>&copy; Food Store</p>
+  </footer>
+
+  <script type="module" src="./index.ts"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Gradle (no incluir en la entrega)
+/.gradle/
+/build/
+
+# Archivos temporales de H2 (no incluir en la entrega)
+*.trace.db
+*.lock.db
+
+# Salida / JVM
+out/
+*.class
+hs_err_pid*
+replay_pid*
+
+# IDE —
+/.idea/
+*.iml

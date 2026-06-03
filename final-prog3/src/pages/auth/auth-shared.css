@@ -1,0 +1,135 @@
+:root {
+  --color-primario: #ff6347;
+  --color-fondo: #f0f0f0;
+  --color-texto: #333;
+  --color-blanco: #fff;
+  --color-borde: #ddd;
+  --color-focus: #ff4500;
+  --color-error: #b00020;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  min-height: 100vh;
+}
+
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-blanco);
+  border: 1px solid var(--color-borde);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.auth-card h1 {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primario);
+}
+
+.auth-card h2 {
+  margin: 10px 0 20px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-card label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.auth-card input {
+  width: 100%;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-card input:focus {
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.2);
+}
+
+.auth-card button[type="submit"] {
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-blanco);
+  background: var(--color-primario);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-card button[type="submit"]:hover {
+  background: var(--color-focus);
+}
+
+.auth-footer {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.auth-footer a {
+  color: var(--color-primario);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-footer a:hover,
+.auth-footer a:focus {
+  color: var(--color-focus);
+  text-decoration: underline;
+}
+
+.msg {
+  margin: 0 0 12px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #ffe8e8;
+  color: var(--color-error);
+  border: 1px solid #f5c2c2;
+}
+
+.msg[hidden] {
+  display: none;
+}
+
+.msg.ok {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border-color: #a5d6a7;
+}

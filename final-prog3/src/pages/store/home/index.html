@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Store — Tienda</title>
+</head>
+<body>
+  <header>
+    <h1>Food Store</h1>
+    <nav>
+      <ul>
+        <li><a href="./index.html" data-nav="home" class="nav-active">Inicio</a></li>
+        <li><a href="../cart/index.html" data-nav="cart">Carrito (<span id="badge-carrito">0</span>)</a></li>
+        <li><a href="../../client/orders/index.html" data-nav="orders">Mis Pedidos</a></li>
+        <li id="nav-admin" hidden><a href="../../admin/index.html">Panel Admin</a></li>
+        <li><button type="button" id="btn-cerrar-sesion" class="link-button">Salir</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <aside>
+    <h2>Categorías</h2>
+    <ul id="lista-categorias"></ul>
+  </aside>
+
+  <main>
+    <p id="saludo-usuario" class="saludo"></p>
+
+    <section>
+      <h2>Producto destacado</h2>
+      <p>Tu último pedido:</p>
+      <section id="producto-destacado"></section>
+    </section>
+
+    <section>
+      <h2>Buscar productos</h2>
+      <form id="form-busqueda" action="#" method="get">
+        <label for="busqueda">Buscar:</label>
+        <input type="search" id="busqueda" name="busqueda" placeholder="Ej: pizza, hamburguesa, bebida">
+        <button type="submit">Buscar</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Catálogo de Productos</h2>
+      <section id="contenedor-productos"></section>
+    </section>
+  </main>
+
+  <footer>
+    <p>Contacto: foodstore@email.com</p>
+    <p>Teléfono: +54 11 1234-5678</p>
+  </footer>
+
+  <script type="module" src="./index.ts"></script>
+</body>
+</html>

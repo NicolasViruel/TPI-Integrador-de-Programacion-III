@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Pedidos | Food Store</title>
+</head>
+<body class="layout-simple">
+  <header>
+    <h1>Food Store</h1>
+    <nav>
+      <ul>
+        <li><a href="../../store/home/index.html">Inicio</a></li>
+        <li><a href="../../store/cart/index.html">Carrito (<span id="badge-carrito">0</span>)</a></li>
+        <li><a href="./index.html" data-nav="orders" class="nav-active">Mis Pedidos</a></li>
+        <li id="nav-admin" hidden><a href="../../admin/index.html">Panel Admin</a></li>
+        <li><button type="button" id="btn-cerrar-sesion" class="link-button">Salir</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <p id="saludo-usuario" class="saludo"></p>
+    <p id="mensaje-exito" class="mensaje-exito" hidden></p>
+    <h2>Mis pedidos</h2>
+    <div id="lista-pedidos"></div>
+  </main>
+
+  <div id="pedido-cliente-modal" class="client-modal" hidden>
+    <div class="client-modal-backdrop pedido-cliente-backdrop"></div>
+    <div class="client-modal-content">
+      <button type="button" class="client-modal-close" id="cerrar-pedido-modal" aria-label="Cerrar">&times;</button>
+      <h2 id="pedido-cliente-titulo"></h2>
+      <div id="pedido-cliente-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Food Store</p>
+  </footer>
+
+  <script type="module" src="./index.ts"></script>
+</body>
+</html>

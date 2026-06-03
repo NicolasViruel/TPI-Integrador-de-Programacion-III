@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de administración | Food Store</title>
+</head>
+<body class="admin-app">
+  <header class="admin-topbar">
+    <a href="../store/home/index.html" class="admin-brand">Food Store</a>
+    <nav class="admin-topnav">
+      <a href="../store/home/index.html">Tienda</a>
+      <a href="./index.html" class="active">Panel Admin</a>
+      <span id="admin-user-name" class="admin-user"></span>
+      <button type="button" id="btn-cerrar-sesion" class="btn-logout">Cerrar Sesión</button>
+    </nav>
+  </header>
+
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <p class="sidebar-label">Administración</p>
+      <p class="sidebar-sub">Panel de control</p>
+      <nav class="sidebar-nav" aria-label="Menú administración">
+        <button type="button" class="sidebar-link active" data-tab="dashboard">
+          <span class="sidebar-icon">📊</span> Dashboard
+        </button>
+        <button type="button" class="sidebar-link" data-tab="categorias">
+          <span class="sidebar-icon">📁</span> Categorías
+        </button>
+        <button type="button" class="sidebar-link" data-tab="productos">
+          <span class="sidebar-icon">🍔</span> Productos
+        </button>
+        <button type="button" class="sidebar-link" data-tab="pedidos">
+          <span class="sidebar-icon">📦</span> Pedidos
+        </button>
+        <a href="../store/home/index.html" class="sidebar-link sidebar-link-store">
+          <span class="sidebar-icon">🖥</span> Ver Tienda
+        </a>
+      </nav>
+    </aside>
+
+    <main class="admin-content">
+      <section id="tab-dashboard" class="admin-panel">
+        <h1 class="panel-title">Panel de Administración</h1>
+        <div class="dashboard-cards">
+          <article class="dash-card dash-card-cat">
+            <div class="dash-card-top">
+              <span class="dash-card-icon">📁</span>
+              <span id="stat-categorias" class="dash-card-num">0</span>
+            </div>
+            <p>Categorías</p>
+            <button type="button" class="btn-gestionar" data-goto="categorias">Gestionar</button>
+          </article>
+          <article class="dash-card dash-card-prod">
+            <div class="dash-card-top">
+              <span class="dash-card-icon">🍔</span>
+              <span id="stat-productos" class="dash-card-num">0</span>
+            </div>
+            <p>Productos</p>
+            <button type="button" class="btn-gestionar" data-goto="productos">Gestionar</button>
+          </article>
+          <article class="dash-card dash-card-ped">
+            <div class="dash-card-top">
+              <span class="dash-card-icon">📦</span>
+              <span id="stat-pedidos" class="dash-card-num">0</span>
+            </div>
+            <p>Pedidos</p>
+            <button type="button" class="btn-gestionar" data-goto="pedidos">Gestionar</button>
+          </article>
+          <article class="dash-card dash-card-disp">
+            <div class="dash-card-top">
+              <span class="dash-card-icon">✓</span>
+              <span id="stat-disponibles" class="dash-card-num">0</span>
+            </div>
+            <p>Disponibles</p>
+            <small>Productos activos</small>
+          </article>
+        </div>
+        <article class="quick-summary">
+          <h2><span>📊</span> Resumen Rápido</h2>
+          <div id="resumen-dashboard" class="quick-summary-body">
+            <p>Cargando estadísticas...</p>
+          </div>
+        </article>
+      </section>
+
+      <section id="tab-categorias" class="admin-panel" hidden>
+        <div class="section-header">
+          <h1 class="panel-title">Gestión de Categorías</h1>
+          <button type="button" id="btn-nueva-categoria" class="btn-primary">Nueva categoría</button>
+        </div>
+        <div class="tabla-wrap">
+          <table class="tabla-admin" id="tabla-categorias">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-productos" class="admin-panel" hidden>
+        <div class="section-header">
+          <h1 class="panel-title">Gestión de Productos</h1>
+          <button type="button" id="btn-nuevo-producto" class="btn-primary">Nuevo producto</button>
+        </div>
+        <div class="tabla-wrap">
+          <table class="tabla-admin" id="tabla-productos">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Disponible</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-pedidos" class="admin-panel" hidden>
+        <div class="section-header">
+          <h1 class="panel-title">Gestión de Pedidos</h1>
+          <select id="filtro-estado" class="filtro-pedidos" aria-label="Filtrar pedidos">
+            <option value="">Todos los pedidos</option>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="CONFIRMADO">Confirmado</option>
+            <option value="TERMINADO">Terminado</option>
+            <option value="CANCELADO">Cancelado</option>
+          </select>
+        </div>
+        <div id="lista-pedidos-admin" class="pedidos-lista"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="admin-modal" class="modal" hidden>
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <h2 id="modal-title"></h2>
+      <form id="modal-form">
+        <div id="modal-fields"></div>
+        <div class="modal-actions">
+          <button type="button" id="modal-cancel" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="pedido-detalle-modal" class="modal pedido-modal" hidden>
+    <div class="modal-backdrop pedido-modal-backdrop"></div>
+    <div class="pedido-modal-content" role="dialog" aria-modal="true">
+      <button type="button" class="pedido-modal-close" id="pedido-modal-close" aria-label="Cerrar">&times;</button>
+      <h2 id="pedido-modal-title">Detalle del Pedido</h2>
+      <div id="pedido-modal-body"></div>
+      <div class="pedido-modal-footer">
+        <label for="pedido-estado-select">Cambiar Estado</label>
+        <select id="pedido-estado-select"></select>
+        <button type="button" id="btn-actualizar-estado" class="btn-actualizar-estado">Actualizar Estado</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./index.ts"></script>
+</body>
+</html>
