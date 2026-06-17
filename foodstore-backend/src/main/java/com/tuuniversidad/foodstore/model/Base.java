@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Version;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,18 +22,25 @@ public abstract class Base {
     @Column(nullable = false)
     protected boolean eliminado;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     protected LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(nullable = false)
+    protected LocalDateTime updatedAt;
+
+    @Version
+    protected Long version;
 
     protected Base() {
         this.eliminado = false;
-        this.createdAt = LocalDateTime.now();
     }
 
     protected Base(Long id, boolean eliminado, LocalDateTime createdAt) {
         this.id = id;
         this.eliminado = eliminado;
-        this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -55,6 +65,22 @@ public abstract class Base {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

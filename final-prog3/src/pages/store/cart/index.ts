@@ -31,6 +31,7 @@ const renderizarCarrito = (): void => {
   const contenedor = document.querySelector<HTMLElement>("#contenedor-carrito");
   const totalEl = document.querySelector<HTMLElement>("#carrito-total");
   const btnPago = document.querySelector<HTMLButtonElement>("#btn-proceder-pago");
+  const btnVaciar = document.querySelector<HTMLButtonElement>("#btn-vaciar-carrito");
   if (!contenedor || !totalEl) return;
 
   const items = getCart();
@@ -38,11 +39,13 @@ const renderizarCarrito = (): void => {
     contenedor.innerHTML = "<p>Tu carrito está vacío. <a href=\"../home/index.html\">Ir al catálogo</a></p>";
     totalEl.textContent = formatMoney(0);
     if (btnPago) btnPago.hidden = true;
+    if (btnVaciar) btnVaciar.hidden = true;
     document.querySelector("#seccion-checkout")?.setAttribute("hidden", "");
     return;
   }
 
   if (btnPago) btnPago.hidden = false;
+  if (btnVaciar) btnVaciar.hidden = false;
   contenedor.innerHTML = "";
   items.forEach((item) => {
     const row = document.createElement("div");
@@ -97,6 +100,14 @@ const renderizarCarrito = (): void => {
 if (usuario) {
   initStoreNav(usuario, "cart");
   renderizarCarrito();
+
+  document.querySelector("#btn-vaciar-carrito")?.addEventListener("click", () => {
+    if (!window.confirm("¿Vaciar el carrito?")) return;
+    clearCart();
+    const badge = document.querySelector("#badge-carrito");
+    if (badge) badge.textContent = "0";
+    renderizarCarrito();
+  });
 
   document.querySelector("#btn-proceder-pago")?.addEventListener("click", () => {
     if (getCart().length === 0) {

@@ -31,9 +31,16 @@ public class ProductoService {
 
     @Transactional
     public ProductoDto crear(ProductoCreate dto) {
-        Categoria categoria = dto.getCategoriaId() != null
-                ? categoriaService.obtenerEntidad(dto.getCategoriaId())
-                : null;
+        if (dto.getCategoriaId() == null) {
+            throw new BadRequestException("La categoría es obligatoria");
+        }
+        if (dto.getPrecio() != null && dto.getPrecio() <= 0) {
+            throw new BadRequestException("El precio debe ser mayor a 0");
+        }
+        if (dto.getStock() < 0) {
+            throw new BadRequestException("El stock no puede ser negativo");
+        }
+        Categoria categoria = categoriaService.obtenerEntidad(dto.getCategoriaId());
         Producto producto = productoMapper.toEntity(dto, categoria);
         return productoMapper.toDto(productoRepository.save(producto));
     }
@@ -61,6 +68,12 @@ public class ProductoService {
     @Transactional
     public ProductoDto actualizar(Long id, ProductoEdit dto) {
         Producto producto = obtenerEntidad(id);
+        if (dto.getPrecio() != null && dto.getPrecio() <= 0) {
+            throw new BadRequestException("El precio debe ser mayor a 0");
+        }
+        if (dto.getStock() < 0) {
+            throw new BadRequestException("El stock no puede ser negativo");
+        }
         Categoria categoria = dto.getCategoriaId() != null
                 ? categoriaService.obtenerEntidad(dto.getCategoriaId())
                 : null;

@@ -4,6 +4,7 @@ import com.tuuniversidad.foodstore.dto.producto.ProductoCreate;
 import com.tuuniversidad.foodstore.dto.producto.ProductoDto;
 import com.tuuniversidad.foodstore.dto.producto.ProductoEdit;
 import com.tuuniversidad.foodstore.service.impl.ProductoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,12 +44,12 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductoDto> crear(@RequestBody ProductoCreate dto) {
+    public ResponseEntity<ProductoDto> crear(@Valid @RequestBody ProductoCreate dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.crear(dto));
     }
 
     @PutMapping("/{id}")
-    public ProductoDto actualizar(@PathVariable Long id, @RequestBody ProductoEdit dto) {
+    public ProductoDto actualizar(@PathVariable Long id, @Valid @RequestBody ProductoEdit dto) {
         return productoService.actualizar(id, dto);
     }
 

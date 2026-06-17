@@ -30,6 +30,6 @@ Configuración adicional (CORS, OpenAPI, datos de prueba): clases en el paquete 
 
 API: http://localhost:8080 — Swagger: http://localhost:8080/swagger-ui.html
 
-Usuarios de prueba: `admin@foodstore.com` / `admin123`, `cliente@foodstore.com` / `usuario123`
+Usuarios de prueba: `admin@admin.com` / `123456`, `cliente@foodstore.com` / `usuario123`
 
 Frontend (Vite): carpeta hermana `../final-prog3` — `npm run dev` en ese directorio.

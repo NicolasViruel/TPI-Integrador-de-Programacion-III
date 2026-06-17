@@ -57,6 +57,7 @@ public class ProductoMapper {
                 .disponible(producto.getDisponible())
                 .categoriaId(producto.getCategoria() != null ? producto.getCategoria().getId() : null)
                 .categoriaNombre(producto.getCategoria() != null ? producto.getCategoria().getNombre() : null)
+                .updatedAt(producto.getUpdatedAt())
                 .build();
     }
 }

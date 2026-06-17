@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,4 +22,5 @@ public class ProductoDto {
     private Boolean disponible;
     private Long categoriaId;
     private String categoriaNombre;
+    private LocalDateTime updatedAt;
 }

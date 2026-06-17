@@ -52,9 +52,9 @@ public class DataLoader implements CommandLineRunner {
         var admin = usuarioService.crear(UsuarioCreate.builder()
                 .nombre("Admin")
                 .apellido("FoodStore")
-                .mail("admin@foodstore.com")
+                .mail("admin@admin.com")
                 .celular("3815551001")
-                .contrasena("admin123")
+                .contrasena("123456")
                 .rol(Rol.ADMIN)
                 .build());
 

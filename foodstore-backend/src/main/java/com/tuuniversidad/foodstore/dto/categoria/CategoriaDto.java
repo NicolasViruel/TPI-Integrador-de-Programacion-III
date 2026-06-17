@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class CategoriaDto {
     private String descripcion;
     private String imagen;
     private int cantidadProductos;
+    private LocalDateTime updatedAt;
 }

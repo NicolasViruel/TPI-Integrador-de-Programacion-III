@@ -11,9 +11,49 @@ import { mapProductoDto } from "../../../types/IProducto";
 
 const usuario = protegerRutaCliente();
 let productosCache: IProducto[] = [];
+let terminoBusqueda = "";
+
+type OrdenCatalogo = "nombre-asc" | "nombre-desc" | "precio-asc" | "precio-desc";
 
 const slugCategoria = (categoria: string): string =>
   categoria.toLowerCase().replace(/\s+/g, "-");
+
+const obtenerOrden = (): OrdenCatalogo => {
+  const valor = document.querySelector<HTMLSelectElement>("#ordenar-productos")?.value;
+  if (
+    valor === "nombre-desc" ||
+    valor === "precio-asc" ||
+    valor === "precio-desc"
+  ) {
+    return valor;
+  }
+  return "nombre-asc";
+};
+
+const ordenarProductos = (lista: IProducto[], orden: OrdenCatalogo): IProducto[] => {
+  const copia = [...lista];
+  switch (orden) {
+    case "nombre-desc":
+      return copia.sort((a, b) => b.nombre.localeCompare(a.nombre, "es"));
+    case "precio-asc":
+      return copia.sort((a, b) => a.precio - b.precio);
+    case "precio-desc":
+      return copia.sort((a, b) => b.precio - a.precio);
+    default:
+      return copia.sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+  }
+};
+
+const filtrarProductos = (): IProducto[] => {
+  const termino = terminoBusqueda.trim().toLowerCase();
+  if (!termino) return productosCache;
+  return productosCache.filter(
+    (p) =>
+      p.nombre.toLowerCase().includes(termino) ||
+      p.descripcion.toLowerCase().includes(termino) ||
+      p.categoria.toLowerCase().includes(termino),
+  );
+};
 
 const crearCardProducto = (
   producto: IProducto,
@@ -66,10 +106,18 @@ const cargarCategorias = (nombres: string[]): void => {
   });
 };
 
-const renderizarProductos = (lista: IProducto[]): void => {
+const renderizarProductos = (): void => {
   const contenedor = document.querySelector<HTMLElement>("#contenedor-productos");
   if (!contenedor) return;
+
+  const lista = ordenarProductos(filtrarProductos(), obtenerOrden());
   contenedor.innerHTML = "";
+
+  if (lista.length === 0) {
+    contenedor.innerHTML = "<p>No hay productos para mostrar.</p>";
+    return;
+  }
+
   const anclas = new Set<string>();
   lista.forEach((producto) => {
     const slug = slugCategoria(producto.categoria);
@@ -82,29 +130,40 @@ const renderizarProductos = (lista: IProducto[]): void => {
 const configurarBusqueda = (): void => {
   document.querySelector<HTMLFormElement>("#form-busqueda")?.addEventListener("submit", (e) => {
     e.preventDefault();
-    const termino = (
-      document.querySelector<HTMLInputElement>("#busqueda")?.value ?? ""
-    )
-      .trim()
-      .toLowerCase();
-    if (!termino) {
-      renderizarProductos(productosCache);
-      return;
-    }
-    renderizarProductos(
-      productosCache.filter(
-        (p) =>
-          p.nombre.toLowerCase().includes(termino) ||
-          p.descripcion.toLowerCase().includes(termino) ||
-          p.categoria.toLowerCase().includes(termino),
-      ),
-    );
+    terminoBusqueda = document.querySelector<HTMLInputElement>("#busqueda")?.value ?? "";
+    renderizarProductos();
+  });
+};
+
+const configurarOrden = (): void => {
+  document.querySelector<HTMLSelectElement>("#ordenar-productos")?.addEventListener("change", () => {
+    renderizarProductos();
+  });
+};
+
+const configurarSidebarMobile = (): void => {
+  const btn = document.querySelector<HTMLButtonElement>("#btn-toggle-sidebar");
+  const sidebar = document.querySelector<HTMLElement>("#sidebar-categorias");
+  if (!btn || !sidebar) return;
+
+  btn.addEventListener("click", () => {
+    sidebar.classList.toggle("sidebar-open");
+    document.body.classList.toggle("sidebar-visible");
+  });
+
+  sidebar.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      sidebar.classList.remove("sidebar-open");
+      document.body.classList.remove("sidebar-visible");
+    });
   });
 };
 
 if (usuario) {
   initStoreNav(usuario, "home");
   configurarBusqueda();
+  configurarOrden();
+  configurarSidebarMobile();
 
   void (async () => {
     try {
@@ -119,7 +178,7 @@ if (usuario) {
       if (destacado && productosCache.length > 0) {
         destacado.appendChild(crearCardProducto(productosCache[1] ?? productosCache[0]));
       }
-      renderizarProductos(productosCache);
+      renderizarProductos();
     } catch {
       window.alert("No se pudo cargar el catálogo. Verificá que el backend esté en http://localhost:8080");
     }

@@ -36,6 +36,7 @@ public class CategoriaMapper {
                 .descripcion(categoria.getDescripcion())
                 .imagen(categoria.getImagen())
                 .cantidadProductos(categoria.getProductos().size())
+                .updatedAt(categoria.getUpdatedAt())
                 .build();
     }
 }

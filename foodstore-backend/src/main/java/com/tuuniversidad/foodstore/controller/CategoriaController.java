@@ -44,7 +44,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public CategoriaDto actualizar(@PathVariable Long id, @RequestBody CategoriaEdit dto) {
+    public CategoriaDto actualizar(@PathVariable Long id, @Valid @RequestBody CategoriaEdit dto) {
         return categoriaService.actualizar(id, dto);
     }
 

@@ -4,6 +4,7 @@ import com.tuuniversidad.foodstore.dto.usuario.UsuarioCreate;
 import com.tuuniversidad.foodstore.dto.usuario.UsuarioDto;
 import com.tuuniversidad.foodstore.dto.usuario.UsuarioEdit;
 import com.tuuniversidad.foodstore.service.impl.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,12 +39,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> crear(@RequestBody UsuarioCreate dto) {
+    public ResponseEntity<UsuarioDto> crear(@Valid @RequestBody UsuarioCreate dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.crear(dto));
     }
 
     @PutMapping("/{id}")
-    public UsuarioDto actualizar(@PathVariable Long id, @RequestBody UsuarioEdit dto) {
+    public UsuarioDto actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioEdit dto) {
         return usuarioService.actualizar(id, dto);
     }
 

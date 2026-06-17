@@ -5,6 +5,7 @@ import com.tuuniversidad.foodstore.dto.pedido.PedidoDto;
 import com.tuuniversidad.foodstore.dto.pedido.PedidoEdit;
 import com.tuuniversidad.foodstore.dto.pedido.PedidoStatusUpdate;
 import com.tuuniversidad.foodstore.service.impl.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDto> crear(@RequestBody PedidoCreateRequest request) {
+    public ResponseEntity<PedidoDto> crear(@Valid @RequestBody PedidoCreateRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.crear(request));
     }
 

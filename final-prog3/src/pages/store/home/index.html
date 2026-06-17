@@ -7,6 +7,7 @@
 </head>
 <body>
   <header>
+    <button type="button" id="btn-toggle-sidebar" class="btn-hamburger" aria-label="Mostrar categorías">☰</button>
     <h1>Food Store</h1>
     <nav>
       <ul>
@@ -19,7 +20,7 @@
     </nav>
   </header>
 
-  <aside>
+  <aside id="sidebar-categorias">
     <h2>Categorías</h2>
     <ul id="lista-categorias"></ul>
   </aside>
@@ -44,6 +45,15 @@
 
     <section>
       <h2>Catálogo de Productos</h2>
+      <div class="catalogo-toolbar">
+        <label for="ordenar-productos">Ordenar por:</label>
+        <select id="ordenar-productos">
+          <option value="nombre-asc">Nombre A-Z</option>
+          <option value="nombre-desc">Nombre Z-A</option>
+          <option value="precio-asc">Precio ascendente</option>
+          <option value="precio-desc">Precio descendente</option>
+        </select>
+      </div>
       <section id="contenedor-productos"></section>
     </section>
   </main>
