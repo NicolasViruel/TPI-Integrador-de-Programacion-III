@@ -12,6 +12,7 @@ import com.tuuniversidad.foodstore.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class ProductoService {
         if (dto.getCategoriaId() == null) {
             throw new BadRequestException("La categoría es obligatoria");
         }
-        if (dto.getPrecio() != null && dto.getPrecio() <= 0) {
+        if (dto.getPrecio() != null && dto.getPrecio().compareTo(BigDecimal.ZERO) <= 0) {
             throw new BadRequestException("El precio debe ser mayor a 0");
         }
         if (dto.getStock() < 0) {
@@ -68,7 +69,7 @@ public class ProductoService {
     @Transactional
     public ProductoDto actualizar(Long id, ProductoEdit dto) {
         Producto producto = obtenerEntidad(id);
-        if (dto.getPrecio() != null && dto.getPrecio() <= 0) {
+        if (dto.getPrecio() != null && dto.getPrecio().compareTo(BigDecimal.ZERO) <= 0) {
             throw new BadRequestException("El precio debe ser mayor a 0");
         }
         if (dto.getStock() < 0) {

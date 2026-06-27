@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -65,7 +66,10 @@ public class DetallePedido extends Base {
 
     public void actualizarSubtotal() {
         if (producto != null && producto.getPrecio() != null) {
-            this.subtotal = producto.getPrecio() * cantidad;
+            // RN-011-06: precio × cantidad con BigDecimal
+            this.subtotal = producto.getPrecio()
+                    .multiply(BigDecimal.valueOf(cantidad))
+                    .doubleValue();
         } else {
             this.subtotal = 0d;
         }

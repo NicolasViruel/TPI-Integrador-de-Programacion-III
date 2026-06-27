@@ -38,7 +38,7 @@ public class PedidoMapper {
                         .build())
                 .toList();
 
-        double subtotal = pedido.calcularSubtotal();
+        double subtotal = pedido.calcularSubtotal().doubleValue();
 
         return PedidoDto.builder()
                 .id(pedido.getId())

@@ -15,6 +15,7 @@ import com.tuuniversidad.foodstore.repository.PedidoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -66,8 +67,10 @@ public class PedidoService {
         if (request.getDireccion() != null && !request.getDireccion().isBlank()) {
             pedido.setDireccion(request.getDireccion().trim());
         }
-        double costoEnvio = request.getCostoEnvio() != null ? request.getCostoEnvio() : 500d;
-        pedido.setCostoEnvio(costoEnvio);
+        BigDecimal costoEnvio = request.getCostoEnvio() != null
+                ? BigDecimal.valueOf(request.getCostoEnvio())
+                : new BigDecimal("500");
+        pedido.setCostoEnvio(costoEnvio.doubleValue());
         usuario.addPedido(pedido);
 
         request.getDetallePedido().forEach(detalle -> {

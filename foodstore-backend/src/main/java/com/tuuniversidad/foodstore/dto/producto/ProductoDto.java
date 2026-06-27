@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,7 +16,7 @@ public class ProductoDto {
 
     private Long id;
     private String nombre;
-    private Double precio;
+    private BigDecimal precio;
     private String descripcion;
     private int stock;
     private String imagen;

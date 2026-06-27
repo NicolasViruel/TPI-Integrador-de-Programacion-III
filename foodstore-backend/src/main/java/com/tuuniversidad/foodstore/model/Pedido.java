@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -144,7 +145,9 @@ public class Pedido extends Base implements Calculable {
         if (existente != null) {
             existente.setCantidad(existente.getCantidad() + cantidad);
             if (subtotal != null) {
-                existente.setSubtotal((existente.getSubtotal() != null ? existente.getSubtotal() : 0d) + subtotal);
+                BigDecimal acumulado = BigDecimal.valueOf(
+                        existente.getSubtotal() != null ? existente.getSubtotal() : 0d);
+                existente.setSubtotal(acumulado.add(BigDecimal.valueOf(subtotal)).doubleValue());
             } else {
                 existente.actualizarSubtotal();
             }
@@ -183,18 +186,22 @@ public class Pedido extends Base implements Calculable {
         }
     }
 
-    public double calcularSubtotal() {
+    public BigDecimal calcularSubtotal() {
         detalles.forEach(DetallePedido::actualizarSubtotal);
         return detalles.stream()
-                .mapToDouble(d -> d.getSubtotal() != null ? d.getSubtotal() : 0d)
-                .sum();
+                .map(d -> d.getSubtotal() != null
+                        ? BigDecimal.valueOf(d.getSubtotal())
+                        : BigDecimal.ZERO)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override
     public void calcularTotal() {
-        double subtotal = calcularSubtotal();
-        double envio = costoEnvio != null ? costoEnvio : 0d;
-        this.total = subtotal + envio;
+        BigDecimal subtotal = calcularSubtotal();
+        BigDecimal envio = costoEnvio != null
+                ? BigDecimal.valueOf(costoEnvio)
+                : BigDecimal.ZERO;
+        this.total = subtotal.add(envio).doubleValue();
     }
 
     public int calcularCantidadItems() {

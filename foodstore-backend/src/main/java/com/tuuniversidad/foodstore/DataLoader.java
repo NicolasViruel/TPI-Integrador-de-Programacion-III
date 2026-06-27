@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -86,34 +87,34 @@ public class DataLoader implements CommandLineRunner {
                 .build());
 
         var productos = List.of(
-                crearProducto("Hamburguesa Clasica", 3500.0,
+                crearProducto("Hamburguesa Clasica", new BigDecimal("3500"),
                         "Pan suave, carne vacuna, queso cheddar, lechuga y tomate fresco.",
                         30, "/assets/hamburguesa.avif", true, hamburguesas.getId()),
-                crearProducto("Hamburguesa Doble", 4800.0,
+                crearProducto("Hamburguesa Doble", new BigDecimal("4800"),
                         "Doble carne, doble queso, bacon y salsa especial.",
                         20, "/assets/hamburguesa.avif", true, hamburguesas.getId()),
-                crearProducto("Pizza Muzzarella", 5200.0,
+                crearProducto("Pizza Muzzarella", new BigDecimal("5200"),
                         "Masa casera, salsa de tomate, abundante mozzarella y aceitunas.",
                         15, "/assets/pizza.jpg", true, pizzas.getId()),
-                crearProducto("Pizza Napolitana", 5800.0,
+                crearProducto("Pizza Napolitana", new BigDecimal("5800"),
                         "Muzzarella, tomate en rodajas, ajo y albahaca fresca.",
                         12, "/assets/pizza.jpg", true, pizzas.getId()),
-                crearProducto("Gaseosa Cola", 1800.0,
+                crearProducto("Gaseosa Cola", new BigDecimal("1800"),
                         "Bebida refrescante de 1,5 litros.",
                         40, "/assets/bebida.jpg", true, bebidas.getId()),
-                crearProducto("Agua Mineral", 1200.0,
+                crearProducto("Agua Mineral", new BigDecimal("1200"),
                         "Botella de agua sin gas 1,5 litros.",
                         35, "/assets/bebida.jpg", true, bebidas.getId()),
-                crearProducto("Papas Fritas", 2200.0,
+                crearProducto("Papas Fritas", new BigDecimal("2200"),
                         "Porcion grande de papas crujientes con aderezo opcional.",
                         25, "/assets/hamburguesa.avif", true, hamburguesas.getId()),
-                crearProducto("Papas con Cheddar", 2800.0,
+                crearProducto("Papas con Cheddar", new BigDecimal("2800"),
                         "Papas fritas con queso cheddar fundido y verdeo.",
                         18, "/assets/hamburguesa.avif", true, hamburguesas.getId()),
-                crearProducto("Pizza Fugazzeta", 5500.0,
+                crearProducto("Pizza Fugazzeta", new BigDecimal("5500"),
                         "Masa rellena, cebolla caramelizada y queso.",
                         10, "/assets/pizza.jpg", true, pizzas.getId()),
-                crearProducto("Limonada", 1500.0,
+                crearProducto("Limonada", new BigDecimal("1500"),
                         "Limonada casera con menta y hielo.",
                         22, "/assets/bebida.jpg", true, bebidas.getId())
         );
@@ -156,7 +157,7 @@ public class DataLoader implements CommandLineRunner {
         log.info("Datos cargados: 2 usuarios, 3 categorías, 10 productos, 3 pedidos.");
     }
 
-    private ProductoDto crearProducto(String nombre, Double precio, String descripcion, int stock,
+    private ProductoDto crearProducto(String nombre, BigDecimal precio, String descripcion, int stock,
                                       String imagen, boolean disponible, Long categoriaId) {
         return productoService.crear(ProductoCreate.builder()
                 .nombre(nombre)

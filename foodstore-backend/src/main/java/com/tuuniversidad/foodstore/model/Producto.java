@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -15,8 +16,9 @@ public class Producto extends Base {
     @Column(nullable = false, length = 200)
     private String nombre;
 
-    @Column(nullable = false)
-    private Double precio;
+    /** RN-011-06: precio monetario con precisión decimal. */
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal precio;
 
     @Column(length = 2000)
     private String descripcion;
@@ -37,7 +39,7 @@ public class Producto extends Base {
         super();
     }
 
-    public Producto(Long id, String nombre, Double precio, String descripcion, int stock,
+    public Producto(Long id, String nombre, BigDecimal precio, String descripcion, int stock,
                     String imagen, Boolean disponible, Categoria categoria) {
         super(id, false, null);
         this.nombre = nombre;
@@ -59,11 +61,11 @@ public class Producto extends Base {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

@@ -60,7 +60,7 @@ const abrirCrear = (): void => {
     "Nueva categoría",
     `
       ${field("nombre", "Nombre", "text", "", "required")}
-      ${textareaField("descripcion", "Descripción")}
+      ${textareaField("descripcion", "Descripción (opcional)")}
       ${field("imagen", "URL imagen", "url", "", "required")}
     `,
     async (form) => {
@@ -81,7 +81,7 @@ const abrirEditar = (cat: CategoriaDto): void => {
     "Editar categoría",
     `
       ${field("nombre", "Nombre", "text", cat.nombre, "required")}
-      ${textareaField("descripcion", "Descripción", cat.descripcion ?? "")}
+      ${textareaField("descripcion", "Descripción (opcional)", cat.descripcion ?? "")}
       ${field("imagen", "URL imagen", "url", cat.imagen ?? "", "required")}
     `,
     async (form) => {
