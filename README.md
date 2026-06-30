@@ -144,6 +144,12 @@ Proyecto con fines **académicos**:
 
 ---
 
+## Link Video: 
+
+https://studio.youtube.com/video/iVp81hHnj7U/edit
+
+---
+
 ## Licencia y uso
 
 Proyecto académico — TPI Programación III, UNT. Uso educativo.
